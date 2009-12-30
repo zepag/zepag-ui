@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1" />
+        <meta http-equiv="Content-Language" content="fr" />
+        <meta name="DC.Language" scheme="RFC3066" content="fr" />
+        <meta name="verify-v1" content="/qBpE0MK7fItDlY6DVmKIqGgyFP6PyvP83jP0hXe68M=" />
+        <link rel="stylesheet" type="text/css" href="styles/original/screen.css" media="screen" title="Normal" />
+        <link rel="stylesheet" type="text/css" href="js/ext/resources/css/ext-all.css" media="screen" title="Normal" />
+        <link rel="stylesheet" type="text/css" href="js/ext/resources/css/xtheme-gray.css" media="screen" title="Normal" />
+        <script src="js/ext/adapter/ext/ext-base.js">
+        </script>
+        <script src="js/ext/ext-all-debug.js">
+        </script>
+        <script src="js/zepag.extjs.basic.js">
+        </script>
+        <script src="js/zepag.extjs.data.links.js">
+        </script>
+        <script>
+            Ext.namespace('Zepag.index.html');
+            Ext.onReady(function(){
+                Zepag.index.html.linksStore = new Zepag.stores.LinksStore();
+                Ext.TaskMgr.start({
+                    run: Zepag.index.html.linksStore.reload,
+                    scope: Zepag.index.html.linksStore,
+                    interval: 20000
+                });
+                Zepag.index.html.linksXTemplate = new Ext.XTemplate('<ul id="lavaLampBorderOnly" class="lamp">', '<tpl for=".">', '<li><a href="{url}"><img src="{icon}"/>{label}</a></li>', '</tpl>', '</ul>');
+                Zepag.index.html.linksStore.on({
+                    'load': {
+                        fn: function(store, records, options){
+                            console.info(store.reader.jsonData.links);
+                            formattedLinks = Zepag.index.html.linksXTemplate.overwrite(Ext.get('linksContent'), store.reader.jsonData.links);
+                        },
+                        scope: this
+                    }
+                });
+                Zepag.index.html.viewPort = new Zepag.ui.BorderViewport({
+                    items: [{
+                        xtype: 'zepag.panel',
+                        region: 'north',
+                        contentEl: 'header'
+                    }, {
+                        xtype: 'zepag.panel',
+                        region: 'center',
+                        title: 'Links',
+                        contentEl: 'linksPanel'
+                    }]
+                });
+                
+            });
+        </script>
+        <title>Pierre-Antoine GREGOIRE</title>
+    </head>
+    <body lang="fr" xml:lang="fr">
+        <div id="header">
+            <div id="zepag-store-loading" style="visibility:hidden">
+                <img src="images/ajax-loader.gif"/>
+            </div>
+            <div id="welcome3" class="welcome3">
+                <div id="welcome2" class="welcome2">
+                    <div id="welcome" class="welcome">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="linksPanel">
+            <div id="linksContent">
+            </div>
+        </div>
+    </body>
+</html>
