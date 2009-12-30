@@ -9,6 +9,7 @@ Ext.namespace('Zepag.ui');
 
 // Define a base for Readers, with default registered events for examples.
 Zepag.readers.BasicReader = Ext.extend(Ext.data.JsonReader, {});
+
 // Define a base for Stores, with default registered events.
 Zepag.stores.BasicStore = Ext.extend(Ext.data.Store, {
     constructor: function(config){

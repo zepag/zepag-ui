@@ -4,34 +4,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1" />
         <meta http-equiv="Content-Language" content="fr" />
-        <meta name="DC.Language" scheme="RFC3066" content="fr" />
-        <meta name="verify-v1" content="/qBpE0MK7fItDlY6DVmKIqGgyFP6PyvP83jP0hXe68M=" />
-        <link rel="stylesheet" type="text/css" href="styles/original/screen.css" media="screen" title="Normal" />
-        <link rel="stylesheet" type="text/css" href="js/ext/resources/css/ext-all.css" media="screen" title="Normal" />
-        <link rel="stylesheet" type="text/css" href="js/ext/resources/css/xtheme-gray.css" media="screen" title="Normal" />
-        <script src="js/ext/adapter/ext/ext-base.js">
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="screen" title="Normal" />
+        <link rel="stylesheet" type="text/css" href="js/extjs/resources/css/ext-all.css" media="screen" title="Normal" />
+        <link rel="stylesheet" type="text/css" href="js/extjs/resources/css/xtheme-gray.css" media="screen" title="Normal" />
+        <script src="js/extjs/adapter/ext/ext-base.js">
         </script>
-        <script src="js/ext/ext-all-debug.js">
+        <script src="js/extjs/ext-all-debug.js">
         </script>
         <script src="js/zepag.extjs.basic.js">
         </script>
-        <script src="js/zepag.extjs.data.links.js">
+        <script src="js/zepag.extjs.data.artists.js">
         </script>
         <script>
             Ext.namespace('Zepag.index.html');
             Ext.onReady(function(){
-                Zepag.index.html.linksStore = new Zepag.stores.LinksStore();
+                Zepag.index.html.artistsStore = new Zepag.stores.ArtistsStore();
                 Ext.TaskMgr.start({
-                    run: Zepag.index.html.linksStore.reload,
-                    scope: Zepag.index.html.linksStore,
+                    run: Zepag.index.html.artistStore.reload,
+                    scope: Zepag.index.html.artistStore,
                     interval: 20000
                 });
-                Zepag.index.html.linksXTemplate = new Ext.XTemplate('<ul id="lavaLampBorderOnly" class="lamp">', '<tpl for=".">', '<li><a href="{url}"><img src="{icon}"/>{label}</a></li>', '</tpl>', '</ul>');
-                Zepag.index.html.linksStore.on({
+                Zepag.index.html.artistsXTemplate = new Ext.XTemplate('<tpl for=".">', '{name}', '</tpl>');
+                Zepag.index.html.artistsStore.on({
                     'load': {
                         fn: function(store, records, options){
-                            console.info(store.reader.jsonData.links);
-                            formattedLinks = Zepag.index.html.linksXTemplate.overwrite(Ext.get('linksContent'), store.reader.jsonData.links);
+                            console.info(store.reader.jsonData.artists);
+                            formattedLinks = Zepag.index.html.artistsXTemplate.overwrite(Ext.get('artistsContent'), store.reader.jsonData.artists);
                         },
                         scope: this
                     }
@@ -44,29 +42,23 @@
                     }, {
                         xtype: 'zepag.panel',
                         region: 'center',
-                        title: 'Links',
-                        contentEl: 'linksPanel'
+                        title: 'Artists',
+                        contentEl: 'artistsPanel'
                     }]
                 });
                 
             });
         </script>
-        <title>Pierre-Antoine GREGOIRE</title>
+        <title>Artist</title>
     </head>
     <body lang="fr" xml:lang="fr">
         <div id="header">
             <div id="zepag-store-loading" style="visibility:hidden">
                 <img src="images/ajax-loader.gif"/>
             </div>
-            <div id="welcome3" class="welcome3">
-                <div id="welcome2" class="welcome2">
-                    <div id="welcome" class="welcome">
-                    </div>
-                </div>
-            </div>
         </div>
-        <div id="linksPanel">
-            <div id="linksContent">
+        <div id="artistsPanel">
+            <div id="artistsContent">
             </div>
         </div>
     </body>

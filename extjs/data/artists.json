@@ -1,0 +1,6 @@
+{
+	artists:[
+		{name:"Metallica",band:"true",icon:"http://www.metallica.com/images/media/albums/dm_cover_img.jpg"},
+		{name:"Steve Vai",band:"false",icon:"http://www.vai.com/SightsSounds/guitar_picks/images/pick_ibanez2002.jpg"}
+	]
+}
