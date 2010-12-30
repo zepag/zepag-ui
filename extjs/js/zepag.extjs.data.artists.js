@@ -5,12 +5,8 @@ Ext.namespace('Zepag');
 Ext.namespace('Zepag.records');
 Ext.namespace('Zepag.stores');
 Ext.namespace('Zepag.readers');
-Zepag.records.ArtistRecord = Ext.data.Record.create([{
-    name: 'name'
-}, {
-    name: 'band',
-	type:'boolean'
-}, {
+Zepag.records.ArtistRecord = Ext.data.Record.create(
+	[ {name: 'name'}, {name: 'band',type:'boolean'}, {
     name: 'icon'
 }]);
 

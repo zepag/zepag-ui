@@ -49,6 +49,7 @@ Zepag.stores.BasicStore = Ext.extend(Ext.data.Store, {
 Zepag.ui.BorderViewport = Ext.extend(Ext.Viewport, {
     constructor: function(config){
         config.layout = 'border';
+		config.defaultType=config.defaultType || 'zepag.panel';
         Zepag.ui.BorderViewport.superclass.constructor.call(this, config);
     }
 });

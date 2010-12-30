@@ -26,13 +26,14 @@
                 });
                 Zepag.index.html.artistsXTemplate = new Ext.XTemplate(
 					'<tpl for=".">',
-					'{name} <img src="{icon}"><br/>',
-					 '</tpl>'
-					);
+						'{name} <img src="{icon}">',
+						'<tpl if="band===\'true\'">[BAND] </tpl>',
+						'<br/>',
+					'</tpl>'
+				);
                 Zepag.index.html.artistsStore.on({
                     'load': {
                         fn: function(store, records, options){
-                            console.info(store.reader.jsonData.artists);
                             formattedLinks = Zepag.index.html.artistsXTemplate.overwrite(Ext.get('artistsContent'), store.reader.jsonData.artists);
                         },
                         scope: this
@@ -40,11 +41,9 @@
                 });
                 Zepag.index.html.viewPort = new Zepag.ui.BorderViewport({
                     items: [{
-                        xtype: 'zepag.panel',
                         region: 'north',
                         contentEl: 'header'
                     }, {
-                        xtype: 'zepag.panel',
                         region: 'center',
                         title: 'Artists',
                         contentEl: 'artistsPanel'
