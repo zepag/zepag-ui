@@ -20,11 +20,15 @@
             Ext.onReady(function(){
                 Zepag.index.html.artistsStore = new Zepag.stores.ArtistsStore();
                 Ext.TaskMgr.start({
-                    run: Zepag.index.html.artistStore.reload,
-                    scope: Zepag.index.html.artistStore,
+                    run: Zepag.index.html.artistsStore.reload,
+                    scope: Zepag.index.html.artistsStore,
                     interval: 20000
                 });
-                Zepag.index.html.artistsXTemplate = new Ext.XTemplate('<tpl for=".">', '{name}', '</tpl>');
+                Zepag.index.html.artistsXTemplate = new Ext.XTemplate(
+					'<tpl for=".">',
+					'{name} <img src="{icon}"><br/>',
+					 '</tpl>'
+					);
                 Zepag.index.html.artistsStore.on({
                     'load': {
                         fn: function(store, records, options){
@@ -46,7 +50,6 @@
                         contentEl: 'artistsPanel'
                     }]
                 });
-                
             });
         </script>
         <title>Artist</title>
@@ -54,7 +57,7 @@
     <body lang="fr" xml:lang="fr">
         <div id="header">
             <div id="zepag-store-loading" style="visibility:hidden">
-                <img src="images/ajax-loader.gif"/>
+                Loading...
             </div>
         </div>
         <div id="artistsPanel">
